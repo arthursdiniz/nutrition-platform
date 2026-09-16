@@ -32,6 +32,13 @@ cd backend; .\mvnw spring-boot:run
 cd mobile; npm install; npx expo start
 ```
 
+Verificações da Fase 1:
+
+```powershell
+cd backend; .\mvnw.cmd test
+cd mobile; npm run typecheck; npm run lint
+```
+
 ## Desenvolvimento sem serviços externos
 
 `AI_PROVIDER=mock`, `SUBSCRIPTION_PROVIDER=mock` e `STORAGE_PROVIDER=local` garantem que a aplicação funcione localmente. Dados de seed terão uso exclusivo no perfil `dev`.

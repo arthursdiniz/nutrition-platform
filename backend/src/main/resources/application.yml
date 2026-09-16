@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: nutrition-platform-api
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/nutrition}
+    username: ${DATABASE_USERNAME:nutrition}
+    password: ${DATABASE_PASSWORD:nutrition_dev_password}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  jackson:
+    time-zone: UTC
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+server:
+  error:
+    include-message: never
+
+app:
+  ai-provider: ${AI_PROVIDER:mock}
+  subscription-provider: ${SUBSCRIPTION_PROVIDER:mock}
+  storage-provider: ${STORAGE_PROVIDER:local}
