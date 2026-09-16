@@ -14,7 +14,7 @@ docs/     # Arquitetura, desenvolvimento e decisões
 
 Fases 0 e 1 concluídas: arquitetura documentada, PostgreSQL via Compose, API Spring Boot 4.1 com Flyway, healthcheck e erro global, além do app Expo SDK 55 com TypeScript estrito, tema e cliente HTTP centralizado.
 
-> Docker Desktop não está disponível no ambiente de desenvolvimento atual; o `docker-compose.yml` está pronto para uso assim que ele for instalado.
+O PostgreSQL do projeto usa a porta `5433` no host para não conflitar com serviços locais já vinculados à porta `5432`.
 
 ## Princípios
 

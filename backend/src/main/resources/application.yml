@@ -2,9 +2,9 @@ spring:
   application:
     name: nutrition-platform-api
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/nutrition}
-    username: ${DATABASE_USERNAME:nutrition}
-    password: ${DATABASE_PASSWORD:nutrition_dev_password}
+    url: ${NUTRITION_DATABASE_URL:jdbc:postgresql://localhost:5433/nutrition}
+    username: ${NUTRITION_DATABASE_USERNAME:nutrition}
+    password: ${NUTRITION_DATABASE_PASSWORD:nutrition_dev_password}
   jpa:
     open-in-view: false
     hibernate:
