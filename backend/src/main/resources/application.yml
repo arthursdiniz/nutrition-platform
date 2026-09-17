@@ -33,6 +33,10 @@ server:
     include-message: never
 
 app:
+  jwt:
+    secret: ${JWT_SECRET:change-this-development-secret-to-a-minimum-32-byte-value}
+    access-token-minutes: 15
+    refresh-token-days: 30
   ai-provider: ${AI_PROVIDER:mock}
   subscription-provider: ${SUBSCRIPTION_PROVIDER:mock}
   storage-provider: ${STORAGE_PROVIDER:local}
