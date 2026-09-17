@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useSessionStore } from '@/stores/session-store';
 
 const baseURL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8080/api/v1';
 
@@ -7,6 +8,7 @@ const http = axios.create({
   timeout: 10_000,
   headers: { Accept: 'application/json' },
 });
+http.interceptors.request.use((config) => { const token = useSessionStore.getState().token; if (token) config.headers.Authorization = `Bearer ${token}`; return config; });
 
 export const api = {
   register: async (email: string, password: string) => (await http.post('/auth/register', { email, password })).data,

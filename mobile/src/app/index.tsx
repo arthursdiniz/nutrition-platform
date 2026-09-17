@@ -1,18 +1,26 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useRouter } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { api } from '@/services/api/client';
 import { theme } from '@/theme/tokens';
+import { useSessionStore } from '@/stores/session-store';
 
 export default function WelcomeScreen() {
+  const router = useRouter();
+  const { token, restore, restoring } = useSessionStore();
+  useEffect(() => { void restore(); }, [restore]);
   const health = useQuery({
     queryKey: ['health'],
     queryFn: api.health,
     retry: false,
   });
+  const profile = useQuery({ queryKey: ['nutrition-profile'], queryFn: () => api.http.get('/nutrition-profile'), enabled: Boolean(token), retry: false });
+  useEffect(() => { if (token && !profile.isLoading && profile.isSuccess && profile.data.status === 204) router.replace('/onboarding'); }, [token, profile.isLoading, profile.isSuccess, profile.data, router]);
 
-  const apiStatus = health.isLoading
+  const apiStatus = restoring || health.isLoading
     ? 'Verificando API...'
     : health.isSuccess
       ? 'API disponível'
