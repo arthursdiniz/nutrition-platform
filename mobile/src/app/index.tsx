@@ -18,6 +18,7 @@ export default function WelcomeScreen() {
     retry: false,
   });
   const profile = useQuery({ queryKey: ['nutrition-profile'], queryFn: () => api.http.get('/nutrition-profile'), enabled: Boolean(token), retry: false });
+  const home = useQuery({ queryKey: ['home'], queryFn: () => api.http.get('/home').then(r => r.data), enabled: Boolean(token), retry: 1 });
   useEffect(() => { if (token && !profile.isLoading && profile.isSuccess && profile.data.status === 204) router.replace('/onboarding'); }, [token, profile.isLoading, profile.isSuccess, profile.data, router]);
 
   const apiStatus = restoring || health.isLoading
@@ -25,6 +26,7 @@ export default function WelcomeScreen() {
     : health.isSuccess
       ? 'API disponível'
       : 'API ainda não está disponível';
+  const homeMessage = home.isLoading ? 'Carregando seu dia...' : home.isError ? 'Não conseguimos carregar seu dia.' : home.data ? `${home.data.dailyTasks.completed} de ${home.data.dailyTasks.total} tarefas concluídas` : 'Faça login para ver sua rotina.';
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -34,6 +36,11 @@ export default function WelcomeScreen() {
         <View style={styles.statusCard}>
           <Text style={styles.statusLabel}>Ambiente de desenvolvimento</Text>
           <Text style={styles.status}>{apiStatus}</Text>
+        </View>
+        <View style={styles.statusCard}>
+          <Text style={styles.statusLabel}>Seu dia</Text>
+          <Text style={styles.status}>{homeMessage}</Text>
+          {home.data && <Text style={styles.statusLabel}>Água registrada: {home.data.waterMl} ml</Text>}
         </View>
       </View>
     </SafeAreaView>

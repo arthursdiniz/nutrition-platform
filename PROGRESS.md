@@ -2,48 +2,41 @@
 
 ## Fase atual
 
-**Fase 3 — Onboarding e perfil nutricional**
+**Fase 4 — Home, check-in e progresso**
 
 ## Objetivo da fase
 
-Permitir que uma pessoa autenticada informe um perfil nutricional em etapas e que o aplicativo encaminhe usuários sem perfil ao onboarding, enquanto usuários com perfil completo seguem para a Home.
+Entregar uma Home "Hoje" útil, check-in diário, registros de peso e medidas e visualização de progresso baseada em dados reais do usuário autenticado.
 
 ## Checklist
 
-- [x] Criar migration e domínio inicial de perfil nutricional.
-- [x] Criar API protegida para consultar e salvar o perfil do próprio usuário.
-- [x] Impedir acesso a perfis de terceiros.
-- [x] Implementar fluxo de onboarding em etapas no Expo.
-- [ ] Encaminhar sessão autenticada conforme completude do perfil.
-- [x] Tratar estados de carregamento, erro e opção de não informar campos opcionais.
-- [x] Testar backend, TypeScript, lint e integração local com PostgreSQL.
+- [x] Criar migrations e APIs protegidas para check-ins, peso e medidas.
+- [x] Criar endpoint agregado `GET /api/v1/home`.
+- [x] Implementar Home "Hoje" no Expo com estados loading, erro e vazio.
+- [x] Implementar formulários de check-in, peso e medidas.
+- [x] Exibir progresso com gráficos simples e linguagem além do peso.
+- [x] Validar autorização, migrations, backend, TypeScript, lint e integração local.
 
 ## Itens concluídos
 
-- A Fase 2 foi enviada no commit `2f96b40`.
-- A migration `V3__create_nutrition_profile.sql` e a entidade `NutritionProfile` foram iniciadas nesta fase, mas ainda não foram validadas nem commitadas.
+- Fase 3 concluída e enviada no commit `40bf0ac`.
 
 ## Item em andamento
 
-Adicionar recuperação de refresh token e decisão inicial de rota no aplicativo.
+Fase concluída; preparar commit e push.
 
 ## Arquivos relevantes alterados
 
-- `backend/src/main/resources/db/migration/V3__create_nutrition_profile.sql`
-- `backend/src/main/java/com/nutritionplatform/nutritionprofile/domain/NutritionProfile.java`
-- `backend/src/main/java/com/nutritionplatform/nutritionprofile/repository/NutritionProfileRepository.java`
-- `backend/src/main/java/com/nutritionplatform/nutritionprofile/dto/NutritionProfileRequest.java`
-- `backend/src/main/java/com/nutritionplatform/nutritionprofile/service/NutritionProfileService.java`
-- `backend/src/main/java/com/nutritionplatform/nutritionprofile/controller/NutritionProfileController.java`
-- `mobile/src/app/onboarding.tsx`
-- `mobile/src/services/api/client.ts`
-- `mobile/src/stores/session-store.ts`
+- `backend/src/main/resources/db/migration/V4__create_progress_tables.sql`
+- `backend/src/main/java/com/nutritionplatform/progress/`
+- `backend/src/main/java/com/nutritionplatform/home/controller/HomeController.java`
+- `mobile/src/app/index.tsx`, `mobile/src/app/checkin.tsx`, `mobile/src/app/progress.tsx`
 
 ## Testes executados
 
-- `backend/.mvnw.cmd test` — passou.
-- `mobile/npm run typecheck` — passou.
-- `mobile/npm run lint` — passou com um aviso existente do Axios.
+- Backend: `mvnw.cmd test` — passou.
+- Mobile: `npm run typecheck` e `npm run lint` — passaram.
+- Tendência de peso: `GET /api/v1/progress/weights` integrado ao gráfico simples no Expo.
 
 ## Erros ou bloqueios
 
@@ -51,4 +44,4 @@ Adicionar recuperação de refresh token e decisão inicial de rota no aplicativ
 
 ## Próximo passo exato
 
-Fase concluída; preparar commit e push.
+Commitar e enviar a Fase 4; não iniciar a Fase 5 automaticamente.

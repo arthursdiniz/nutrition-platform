@@ -1,0 +1,3 @@
+package com.nutritionplatform.progress.dto;
+import jakarta.validation.constraints.*; import java.math.BigDecimal; import java.time.LocalDate;
+public final class ProgressRequests { private ProgressRequests(){} public record Checkin(@Min(1) @Max(5) Integer hungerLevel,@Min(1) @Max(5) Integer energyLevel,@Min(1) @Max(5) Integer sleepQuality,@Min(1) @Max(5) Integer mood,@Min(0) Integer waterMl,@Min(0) Integer exerciseMinutes,@Min(1) @Max(5) Integer mealPlanAdherence,@Size(max=1000) String notes){} public record Weight(@NotNull @DecimalMin("20") @DecimalMax("500") BigDecimal weightKg,LocalDate recordedAt){} public record Measurement(@NotBlank @Size(max=40) String measurementType,@NotNull @DecimalMin("1") @DecimalMax("500") BigDecimal valueCm,LocalDate recordedAt){} }
